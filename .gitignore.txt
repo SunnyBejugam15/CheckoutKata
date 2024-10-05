@@ -7,3 +7,6 @@ obj/
 *.suo
 *.csproj.user
 .vs/
+
+# Ignore code coverage tool output if you are using any
+fine-code-coverage/
