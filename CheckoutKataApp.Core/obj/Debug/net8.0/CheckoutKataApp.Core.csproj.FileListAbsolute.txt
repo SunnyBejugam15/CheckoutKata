@@ -1,0 +1,11 @@
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\bin\Debug\net8.0\CheckoutKataApp.Core.deps.json
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\bin\Debug\net8.0\CheckoutKataApp.Core.dll
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\bin\Debug\net8.0\CheckoutKataApp.Core.pdb
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\obj\Debug\net8.0\CheckoutKataApp.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\obj\Debug\net8.0\CheckoutKataApp.Core.AssemblyInfoInputs.cache
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\obj\Debug\net8.0\CheckoutKataApp.Core.AssemblyInfo.cs
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\obj\Debug\net8.0\CheckoutKataApp.Core.csproj.CoreCompileInputs.cache
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\obj\Debug\net8.0\CheckoutKataApp.Core.dll
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\obj\Debug\net8.0\refint\CheckoutKataApp.Core.dll
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\obj\Debug\net8.0\CheckoutKataApp.Core.pdb
+C:\Users\sunny.bejugam\DotNetWorkspace\BlueTreeApp\CheckoutKataApp.Core\obj\Debug\net8.0\ref\CheckoutKataApp.Core.dll
