@@ -59,8 +59,6 @@ namespace CheckoutKataApp.Core
                 {
                     _totalPrice += itemCount * unitPrice;
                 }
-                
-          
             }
         }
     }

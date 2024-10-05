@@ -4,9 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework;
 
 namespace CheckoutKataApp.Tests
 {
+    [TestFixture]
     public class CheckoutTests
     {
         private Dictionary<string, (int UnitPrice, int OfferQuantity, int OfferPrice)> _pricingRules;
@@ -24,84 +26,67 @@ namespace CheckoutKataApp.Tests
             };
         }
 
-        [Test]
-        public void Scan_SingleItemA_ReturnsTheCorrectPrice()
+     
+        [TestCase("A", 50)]
+        [TestCase("B", 30)]
+        [TestCase("C", 20)]
+        [TestCase("D", 15)]
+        public void Scan_SingleItemA_ReturnsTheCorrectPrice(string item, int expectedTotal)
         {
             var checkout = new Checkout(_pricingRules);
-            checkout.Scan("A");
-            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(50));
+            checkout.Scan(item);
+            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(expectedTotal));
         }
 
-        [Test]
-        public void Scan_SingleItemB_ReturnsTheCorrectPrice()
+
+      
+        [TestCase(new[] { "A", "B" }, 80)]  // A + B = 50 + 30 = 80
+        [TestCase(new[] { "C", "D" }, 35)]  // C + D = 20 + 15 = 35
+        public void Scan_MultipleItemsWithoutOffer_ReturnsCorrectTotal(string[] items, int expectedTotal)
         {
             var checkout = new Checkout(_pricingRules);
-            checkout.Scan("B");
-            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(30));
+            foreach (var item in items)
+            {
+                checkout.Scan(item);
+            }
+            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(expectedTotal));
         }
 
-        [Test]
-        public void Scan_MultipleItesmsWithOutOffer_ReturnsTheCorrectTotalPrice()
+        
+        [TestCase(new[] { "A", "A", "A" }, 130)]  // 3 A's for 130
+        [TestCase(new[] { "A", "A", "A", "A" }, 180)]  // 3 A's for 130 + 1 A for 50 = 180
+        public void Scan_ApplySpecialOfferForA_ReturnsCorrectTotal(string[] items, int expectedTotal)
         {
             var checkout = new Checkout(_pricingRules);
-            checkout.Scan("A");
-            checkout.Scan("B");
-            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(80));
+            foreach (var item in items)
+            {
+                checkout.Scan(item);
+            }
+            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(expectedTotal));
         }
 
-        [Test]
-        public void Scan_MultupleItemsWithOffer_ReturnsTheCorrectTotalPrice()
+        [TestCase(new[] { "B", "B" }, 45)]  // 2 B's for 45
+        [TestCase(new[] { "B", "B", "B" }, 75)]  // 2 B's for 45 + 1 B for 30 = 75
+        public void Scan_ApplySpecialOfferForB_ReturnsCorrectTotal(string[] items, int expectedTotal)
         {
             var checkout = new Checkout(_pricingRules);
-            checkout.Scan("A");
-            checkout.Scan("A");
-            checkout.Scan("A");
-            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(130));
+            foreach (var item in items)
+            {
+                checkout.Scan(item);
+            }
+            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(expectedTotal));
         }
 
-        [Test]  
-        public void Scan_4As_ApplySpecialOfferAndSingleItem_ReturnsTheCorrectTotalPrice()
+       
+        [TestCase(new[] { "A", "A", "A", "B", "B", "C", "D" }, 210)]  // Mixed items: 130 + 45 + 20 + 15 = 210
+        public void Scan_MixedItems_ReturnsCorrectTotal(string[] items, int expectedTotal)
         {
             var checkout = new Checkout(_pricingRules);
-            checkout.Scan("A");
-            checkout.Scan("A");
-            checkout.Scan("A");
-            checkout.Scan("A");
-            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(180));
-        }
-
-        [Test]
-        public void Scan_TwoBs_ApplySpecialOffer_ReturnsCorrectTotal()
-        {
-            var checkout = new Checkout(_pricingRules);
-            checkout.Scan("B");
-            checkout.Scan("B");
-            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(45));
-        }
-
-        [Test]
-        public void Scan_MixedItems_ApplyOffers_ReturnsCorrectTotal()
-        {
-            var checkout = new Checkout(_pricingRules);
-            checkout.Scan("A");
-            checkout.Scan("A");
-            checkout.Scan("A");
-            checkout.Scan("B");
-            checkout.Scan("B");
-            checkout.Scan("C");
-            checkout.Scan("D");
-            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(210));
-        }
-
-        [Test]
-        public void Scan_OneOfEachItem_NoOffers_ReturnsCorrectTotal()
-        {
-            var checkout = new Checkout(_pricingRules);
-            checkout.Scan("A");
-            checkout.Scan("B");
-            checkout.Scan("C");
-            checkout.Scan("D");
-            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(115));
+            foreach (var item in items)
+            {
+                checkout.Scan(item);
+            }
+            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(expectedTotal));
         }
     }
 }
