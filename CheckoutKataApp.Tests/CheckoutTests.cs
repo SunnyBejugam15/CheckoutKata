@@ -25,11 +25,19 @@ namespace CheckoutKataApp.Tests
         }
 
         [Test]
-        public void Scan_SingleItem_ReturnsTheCorrectPrice()
+        public void Scan_SingleItemA_ReturnsTheCorrectPrice()
         {
             var checkout = new Checkout(_pricingRules);
             checkout.Scan("A");
             Assert.That(checkout.GetTotalPrice(), Is.EqualTo(50));
+        }
+
+        [Test]
+        public void Scan_SingleItemB_ReturnsTheCorrectPrice()
+        {
+            var checkout = new Checkout(_pricingRules);
+            checkout.Scan("B");
+            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(30));
         }
 
         [Test]
@@ -49,6 +57,51 @@ namespace CheckoutKataApp.Tests
             checkout.Scan("A");
             checkout.Scan("A");
             Assert.That(checkout.GetTotalPrice(), Is.EqualTo(130));
+        }
+
+        [Test]  
+        public void Scan_4As_ApplySpecialOfferAndSingleItem_ReturnsTheCorrectTotalPrice()
+        {
+            var checkout = new Checkout(_pricingRules);
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(180));
+        }
+
+        [Test]
+        public void Scan_TwoBs_ApplySpecialOffer_ReturnsCorrectTotal()
+        {
+            var checkout = new Checkout(_pricingRules);
+            checkout.Scan("B");
+            checkout.Scan("B");
+            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(45));
+        }
+
+        [Test]
+        public void Scan_MixedItems_ApplyOffers_ReturnsCorrectTotal()
+        {
+            var checkout = new Checkout(_pricingRules);
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(210));
+        }
+
+        [Test]
+        public void Scan_OneOfEachItem_NoOffers_ReturnsCorrectTotal()
+        {
+            var checkout = new Checkout(_pricingRules);
+            checkout.Scan("A");
+            checkout.Scan("B");
+            checkout.Scan("C");
+            checkout.Scan("D");
+            Assert.That(checkout.GetTotalPrice(), Is.EqualTo(115));
         }
     }
 }
